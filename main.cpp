@@ -8,7 +8,7 @@
 
 void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
 void draw_circle(SDL_Surface *surface, int n_cx, int n_cy, int radius, Uint32 pixel);
-void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius);
+void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius, Uint32 dotColor);
 
 int main ( int argc, char** argv )
 {
@@ -84,7 +84,9 @@ int main ( int argc, char** argv )
         time(&tempsBrut);
         temps = localtime(&tempsBrut);
         printf("%d\n", temps->tm_sec);
-        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - 200, (screen->h / 2) - 200, 200, 8);
+        draw_dots(screen, 0, 60, (screen->w / 2) - 200, (screen->h / 2) - 200, 200, 8, SDL_MapRGB(screen->format, 32, 32, 32));
+        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - 200, (screen->h / 2) - 200, 200, 8, SDL_MapRGB(screen->format, 255, 0, 0));
+        draw_dots(screen, 0, 12, (screen->w / 2) - 222, (screen->h / 2) - 222, 222, 8, SDL_MapRGB(screen->format, 255, 0, 0));
         // DRAWING ENDS HERE
 
         // finally, update the screen :)
@@ -116,7 +118,7 @@ void draw_circle(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
     }
 }
 
-void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius) {
+void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius, Uint32 dotColor) {
     int centerX = x + radius;
     int centerY = y + radius;
 
@@ -129,12 +131,12 @@ void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int
     }
 
     if(secondes == 0) {
-        secondes = 60;
+        secondes = totalSecondes;
     }
 
     for(int i = 0; i < secondes; i++) {
         int dotX = centerX + radius * cos((d2r(360)/totalSecondes)*i-d2r(90));
         int dotY = centerY + radius * sin((d2r(360)/totalSecondes)*i-d2r(90));
-        draw_circle(surface, dotX, dotY, dotRadius, SDL_MapRGB(surface->format, 255, 0, 0));
+        draw_circle(surface, dotX, dotY, dotRadius, dotColor);
     }
 }
