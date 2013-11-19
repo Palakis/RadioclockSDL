@@ -79,14 +79,17 @@ int main ( int argc, char** argv )
         // draw bitmap
         SDL_BlitSurface(bmp, 0, screen, &dstrect);
 
+        int rayonPoint = 8;
+        int rayonHorloge = 200;
+
         time_t tempsBrut;
         struct tm * temps;
         time(&tempsBrut);
         temps = localtime(&tempsBrut);
         printf("%d\n", temps->tm_sec);
-        draw_dots(screen, 0, 60, (screen->w / 2) - 200, (screen->h / 2) - 200, 200, 8, SDL_MapRGB(screen->format, 32, 32, 32));
-        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - 200, (screen->h / 2) - 200, 200, 8, SDL_MapRGB(screen->format, 255, 0, 0));
-        draw_dots(screen, 0, 12, (screen->w / 2) - 222, (screen->h / 2) - 222, 222, 8, SDL_MapRGB(screen->format, 255, 0, 0));
+        draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, 8, SDL_MapRGB(screen->format, 32, 32, 32));
+        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, 8, SDL_MapRGB(screen->format, 255, 0, 0));
+        draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + 22), (screen->h / 2) - (rayonHorloge + 22), (rayonHorloge + 22), 8, SDL_MapRGB(screen->format, 255, 0, 0));
         // DRAWING ENDS HERE
 
         // finally, update the screen :)
@@ -119,6 +122,7 @@ void draw_circle(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel)
 }
 
 void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius, Uint32 dotColor) {
+    secondes++;
     int centerX = x + radius;
     int centerY = y + radius;
 
@@ -126,15 +130,8 @@ void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int
         secondes = totalSecondes;
     }
 
-    if(secondes < 0) {
-        secondes = 0;
-    }
-
-    if(secondes == 0) {
-        secondes = totalSecondes;
-    }
-
     for(int i = 0; i < secondes; i++) {
+
         int dotX = centerX + radius * cos((d2r(360)/totalSecondes)*i-d2r(90));
         int dotY = centerY + radius * sin((d2r(360)/totalSecondes)*i-d2r(90));
         draw_circle(surface, dotX, dotY, dotRadius, dotColor);
