@@ -22,9 +22,10 @@ int main ( int argc, char** argv )
 
     // On s'assure que SDL est quitté correctement à l'arrêt du prog
     atexit(SDL_Quit);
-
     // Création d'une fenêtre
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE;
+    int screenBPP = 32;
+    SDL_Surface* screen = SDL_SetVideoMode(640, 480, screenBPP, screenFlags);
     if ( !screen )
     {
         printf("Impossible d'utiliser la résolution souhaitée: %s\n", SDL_GetError());
@@ -41,12 +42,10 @@ int main ( int argc, char** argv )
 
     // Coordonnées de placement de l'image, au centre de la surface d'affichage.
     SDL_Rect dstrect;
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;
 
     // Couleurs des éléments visuels
-    Uint32 couleurRoue = SDL_MapRGB(screen->format, 255, 0, 0);
-    Uint32 couleurCadran = SDL_MapRGB(screen->format, 255, 0, 0);
+    Uint32 couleurRoue = SDL_MapRGB(screen->format, 0, 0, 255);
+    Uint32 couleurCadran = SDL_MapRGB(screen->format, 0, 0, 255);
     Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 32, 32, 32);
 
     // Rayons des éléments
@@ -68,12 +67,14 @@ int main ( int argc, char** argv )
             // Message ou pas message ?
             switch (event.type)
             {
-                // exit if the window is closed
+                case SDL_VIDEORESIZE:
+                    screen = SDL_SetVideoMode(event.resize.w, event.resize.h, screenBPP, screenFlags);
+                    break;
+
                 case SDL_QUIT:
                     done = true;
                     break;
 
-                // check for keypresses
                 case SDL_KEYDOWN:
                 {
                     // exit if ESCAPE is pressed
@@ -88,6 +89,10 @@ int main ( int argc, char** argv )
 
         // Vidange de la surface d'affichage
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+
+        // On calcule les coordonnées de l'image
+        dstrect.x = (screen->w - bmp->w) / 2;
+        dstrect.y = (screen->h - bmp->h) / 2;
         // On affiche l'image
         SDL_BlitSurface(bmp, 0, screen, &dstrect);
 

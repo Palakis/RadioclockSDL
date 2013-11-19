@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1384885395 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.cpp
+1384892378 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.cpp
 	<stdlib.h>
 	<time.h>
 	<math.h>
