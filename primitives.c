@@ -39,9 +39,13 @@ void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int
 }
 
 void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, Uint32 color) {
-    const int separation = 17;
-    const int cornerSeparation = 12;
-    const int radius = 8;
+    //const int separation = 17;
+    //const int cornerSeparation = 12;
+    //const int radius = 8;
+
+    const int separation = w / 4.17;
+    const int cornerSeparation = w / 5.91;
+    const int radius = w / 8.87;
     const int segmentLength = 4;
 
     switch(digit) {
