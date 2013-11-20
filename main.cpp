@@ -7,7 +7,7 @@
 #define r2d(a) (a * 57.295779513082)
 #define d2r(a) (a * 0.017453292519)
 
-void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
+void set_pixel(SDL_Surface *surface, int x, int y, Uint32 color);
 void draw_circle(SDL_Surface *surface, int n_cx, int n_cy, int radius, Uint32 pixel);
 void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius, Uint32 dotColor);
 
@@ -96,6 +96,13 @@ int main ( int argc, char** argv )
         // On affiche l'image
         SDL_BlitSurface(bmp, 0, screen, &dstrect);
 
+        // Calcul rayon horloge en fonction de la largeur de l'écran
+        rayonHorloge = (screen->w / 2) - rayonPoint - 22;
+        // Limitation rayon horloge en fonction de la hauteur de l'écran
+        if(rayonHorloge > (screen->h / 2) - rayonPoint - 22) {
+            rayonHorloge = (screen->h / 2) - rayonPoint - 22;
+        }
+
         // On récupère l'heure et la date
         time(&tempsBrut);
         temps = localtime(&tempsBrut);
@@ -108,6 +115,10 @@ int main ( int argc, char** argv )
         // Et enfin on affiche la roue des secondes
         draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
 
+        //draw_circle(screen, rayonPoint+100, rayonPoint, rayonPoint, 0x00FF00);
+        //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
+        //set_pixel(screen, 100, 50, 0xFFFFFF);
+
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage
@@ -119,37 +130,38 @@ int main ( int argc, char** argv )
     return 0;
 }
 
+void set_pixel(SDL_Surface *surface, int x, int y, Uint32 color) {
+    if(x < surface->w && y < surface->h && x > 0 && y > 0) {
+        Uint8 *target_pixel = (Uint8 *)surface->pixels + y * surface->pitch + x * surface->format->BytesPerPixel;
+        *(Uint32 *)target_pixel = color;
+        target_pixel += surface->format->BitsPerPixel;
+    }
+}
+
 void draw_circle(SDL_Surface *surface, int cx, int cy, int radius, Uint32 pixel) {
-    static const int BPP = surface->format->BytesPerPixel;
     double r = (double)radius;
 
     for(double dy = 1; dy <= r; dy += 1.0) {
         double dx = floor(sqrt((2.0 * r * dy) - (dy * dy)));
         int x = cx - dx;
 
-        Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
-        Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
-
         for(; x <= cx + dx; x++) {
-            *(Uint32 *)target_pixel_a = pixel;
-            *(Uint32 *)target_pixel_b = pixel;
-            target_pixel_a += BPP;
-            target_pixel_b += BPP;
+            set_pixel(surface, x, ((int)(cy + r - dy)), pixel);
+            set_pixel(surface, x, ((int)(cy - r + dy)), pixel);
         }
     }
 }
 
 void draw_dots(SDL_Surface *surface, int secondes, int totalSecondes, int x, int y, int radius, int dotRadius, Uint32 dotColor) {
-    secondes++;
     int centerX = x + radius;
     int centerY = y + radius;
+    secondes++;
 
     if(secondes > totalSecondes) {
         secondes = totalSecondes;
     }
 
     for(int i = 0; i < secondes; i++) {
-
         int dotX = centerX + radius * cos((d2r(360)/totalSecondes)*i-d2r(90));
         int dotY = centerY + radius * sin((d2r(360)/totalSecondes)*i-d2r(90));
         draw_circle(surface, dotX, dotY, dotRadius, dotColor);
