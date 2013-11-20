@@ -37,10 +37,11 @@ int main ( int argc, char** argv )
     SDL_Rect dstrect;
 
     // Couleurs des éléments visuels
-    Uint32 couleurRoue = SDL_MapRGB(screen->format, 255, 0, 0);
-    Uint32 couleurCadran = SDL_MapRGB(screen->format, 255, 0, 0);
+    Uint32 couleurRoue = 0xFF0000;
+    Uint32 couleurCadran = 0xFF0000;
     Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 32, 32, 32);
-
+    Uint32 couleurDigits = 0xFF0000;
+    Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 32, 32, 32);
     // Rayons des éléments
     int rayonPoint = 8;
     int rayonHorloge = 200;
@@ -120,7 +121,7 @@ int main ( int argc, char** argv )
         //draw_circle(screen, rayonPoint+100, rayonPoint, rayonPoint, 0x00FF00);
         //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
         //set_pixel(screen, 100, 50, 0xFFFFFF);
-        draw_digit(screen, '2', 0, 0, 136, 0xFFFFFF);
+        draw_digit(screen, '8', 0, 0, 136, 0xFFFFFF);
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage
