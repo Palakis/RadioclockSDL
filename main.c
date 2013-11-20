@@ -121,7 +121,7 @@ int main ( int argc, char** argv )
         //draw_circle(screen, rayonPoint+100, rayonPoint, rayonPoint, 0x00FF00);
         //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
         //set_pixel(screen, 100, 50, 0xFFFFFF);
-        draw_digit(screen, '8', 0, 0, 136, 0xFFFFFF);
+        draw_digit(screen, '8', 0, 0, (screen->w * 0.20), 0xFFFFFF);
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage

@@ -12,7 +12,7 @@
 1384964367 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
 	"primitives.h"
 
-1384964574 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
+1384972406 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
 	<stdlib.h>
 	<time.h>
 	<SDL/SDL.h>
