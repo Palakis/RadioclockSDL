@@ -5,14 +5,15 @@
 	<SDL/SDL.h>
 	"primitives.h"
 
-1384959598 /home/dali/Projets CodeBlocks/RadioclockSDL/primitives.h
+1384982398 /home/dali/Projets CodeBlocks/RadioclockSDL/primitives.h
 	<math.h>
+	<string.h>
 	<SDL/SDL.h>
 
-1384964367 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
+1384983045 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
 	"primitives.h"
 
-1384972406 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
+1384983129 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
 	<stdlib.h>
 	<time.h>
 	<SDL/SDL.h>

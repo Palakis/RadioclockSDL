@@ -25,17 +25,6 @@ int main ( int argc, char** argv )
         return 1;
     }
 
-    // On charge le logo CodeBlocks dans une surface
-    SDL_Surface* bmp = SDL_LoadBMP("cb.bmp");
-    if (!bmp)
-    {
-        printf("Erreur chargement BMP: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // Coordonnées de placement de l'image, au centre de la surface d'affichage.
-    SDL_Rect dstrect;
-
     // Couleurs des éléments visuels
     Uint32 couleurRoue = 0xFF0000;
     Uint32 couleurCadran = 0xFF0000;
@@ -49,7 +38,7 @@ int main ( int argc, char** argv )
 
     // Stockage du temps
     time_t tempsBrut;
-    struct tm * temps;
+    struct tm *temps;
 
     const int framerate = 15;
     int timeDelta = 1000/framerate;
@@ -88,12 +77,6 @@ int main ( int argc, char** argv )
         // Vidange de la surface d'affichage
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        // On calcule les coordonnées de l'image
-        dstrect.x = (screen->w - bmp->w) / 2;
-        dstrect.y = (screen->h - bmp->h) / 2;
-        // On affiche l'image
-        SDL_BlitSurface(bmp, 0, screen, &dstrect);
-
         // Calcul rayon horloge en fonction de la largeur de l'écran
         rayonHorloge = (screen->w / 2) - rayonPoint - ecartCadran;
 
@@ -112,16 +95,17 @@ int main ( int argc, char** argv )
         //printf("%d\n", temps->tm_sec);
 
         // On affiche la roue en mode "off"
-        //draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
+        draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
         // Puis on affiche le cadran autour de la roue
-        //draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + ecartCadran), (screen->h / 2) - (rayonHorloge + ecartCadran), (rayonHorloge + ecartCadran), rayonPoint, couleurCadran);
+        draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + ecartCadran), (screen->h / 2) - (rayonHorloge + ecartCadran), (rayonHorloge + ecartCadran), rayonPoint, couleurCadran);
         // Et enfin on affiche la roue des secondes
-        //draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
+        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
 
         //draw_circle(screen, rayonPoint+100, rayonPoint, rayonPoint, 0x00FF00);
         //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
         //set_pixel(screen, 100, 50, 0xFFFFFF);
-        draw_digit(screen, '8', 0, 0, (screen->w * 0.20), 0xFFFFFF);
+        //draw_digit(screen, '8', 0, 0, (screen->w * 0.20), 0xFFFFFF);
+        draw_digit_clock(screen, (screen->w / 2), (screen->h / 2), rayonHorloge, rayonPoint, couleurDigits, NULL);
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage
@@ -132,7 +116,5 @@ int main ( int argc, char** argv )
         SDL_Delay(timeDelta);
     }
 
-    // On décharge l'image du logo CodeBlocks
-    SDL_FreeSurface(bmp);
     return 0;
 }
