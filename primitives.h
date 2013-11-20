@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <time.h>
 #include <SDL/SDL.h>
 
 // Fonctions de conversion radians/degrés

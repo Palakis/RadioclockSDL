@@ -42,13 +42,13 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     //const int separation = 17;
     //const int cornerSeparation = 12;
     //const int radius = 8;
-    const int separation = w / 4.17;
-    const int cornerSeparation = w / 5.91;
-    const int radius = w / 8.87;
+    const int separation = 15;
+    const int cornerSeparation = 12;
+    const int radius = dotRadius;
     const int segmentLength = 4;
 
-    int maxWidth = radius + (cornerSeparation*2) + (separation*(segmentLength-1)) + radius;
-    int maxHeight = (radius*2) + (cornerSeparation/2) + (separation*(segmentLength)) + (separation*(segmentLength)) + radius;
+    const int maxWidth = radius + (cornerSeparation*2) + (separation*(segmentLength-1)) + radius;
+    const int maxHeight = (radius*2) + (cornerSeparation/2) + (separation*(segmentLength)) + (separation*(segmentLength)) + radius;
 
     x = x - (maxWidth/2);
     y = y - (maxHeight/2);
@@ -103,7 +103,7 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     }
     if(digit & 0b0001000) {
             for(int i = 0; i < segmentLength; i++) {
-                draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius*2) + (cornerSeparation/2) + (separation*(segmentLength)) + (separation*(segmentLength)), radius, color);
+                draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius*2) + (cornerSeparation) + (separation*(segmentLength)) + (separation*(segmentLength)), radius, color);
             }
     }
     if(digit & 0b0010000) {
@@ -123,24 +123,24 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     }
 }
 
-void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius, Uint32 color, struct tm *temps) {
-    int spacing = w / 70;
+void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius, Uint32 color, struct tm *temps, int sec) {
     char tempsStr[5];
+    int largeurDigit = w/4;
 
     if(temps == NULL) {
         strcpy(tempsStr, "8888");
     } else {
         strftime(tempsStr, 5, "%H%M", temps);
     }
-    printf("%s\n",tempsStr);
+    //printf("%s\n",tempsStr);
 
-    draw_digit(surface, tempsStr[0], cx-((spacing)*2)-(w/4)*2, cy, w/4, dotRadius, color);
-    draw_digit(surface, tempsStr[1], cx-((spacing/2)*1)-(w/4), cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[0], cx - (largeurDigit/2)*2 - largeurDigit - (largeurDigit/3), cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[1], cx - (largeurDigit/2)*2, cy, w/4, dotRadius, color);
 
-    if(temps == NULL) {
+    if(temps == NULL || sec % 2) {
         draw_circle(surface, cx, cy - 30, dotRadius, color);
         draw_circle(surface, cx, cy + 30, dotRadius, color);
     }
-    draw_digit(surface, tempsStr[2], cx+((spacing/2)*1)+(w/4), cy, w/4, dotRadius, color);
-    draw_digit(surface, tempsStr[3], cx+((spacing)*2)+(w/4)*2, cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[2], cx + (largeurDigit/2)*2, cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[3], cx + (largeurDigit/2)*2 + largeurDigit + (largeurDigit/3), cy, w/4, dotRadius, color);
 }

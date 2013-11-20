@@ -16,9 +16,9 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // Création d'une fenêtre
-    Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE;
+    Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF;
     int screenBPP = 32;
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, screenBPP, screenFlags);
+    SDL_Surface* screen = SDL_SetVideoMode(800, 700, screenBPP, screenFlags);
     if ( !screen )
     {
         printf("Impossible d'utiliser la résolution souhaitée: %s\n", SDL_GetError());
@@ -28,12 +28,12 @@ int main ( int argc, char** argv )
     // Couleurs des éléments visuels
     Uint32 couleurRoue = 0xFF0000;
     Uint32 couleurCadran = 0xFF0000;
-    Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 32, 32, 32);
+    Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 16, 16, 16);
     Uint32 couleurDigits = 0xFF0000;
-    Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 32, 32, 32);
+    Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 8, 8, 8);
     // Rayons des éléments
-    int rayonPoint = 8;
-    int rayonHorloge = 200;
+    int rayonPoint = 6;
+    int rayonHorloge = 294;
     int ecartCadran = 22;
 
     // Stockage du temps
@@ -78,7 +78,8 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         // Calcul rayon horloge en fonction de la largeur de l'écran
-        rayonHorloge = (screen->w / 2) - rayonPoint - ecartCadran;
+        rayonHorloge = 300 - rayonPoint;
+        //rayonPoint = rayonHorloge / 49;
 
         // Limitation rayon horloge en fonction de la hauteur de l'écran
         if(rayonHorloge > (screen->h / 2) - rayonPoint - ecartCadran) {
@@ -86,8 +87,7 @@ int main ( int argc, char** argv )
         }
 
         // Calcul rayon point et écart cadran
-        rayonPoint = (rayonHorloge) / 25;
-        ecartCadran = (rayonHorloge) / 9;
+        //ecartCadran = rayonHorloge * 0.11;
 
         // On récupère l'heure et la date
         time(&tempsBrut);
@@ -105,7 +105,8 @@ int main ( int argc, char** argv )
         //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
         //set_pixel(screen, 100, 50, 0xFFFFFF);
         //draw_digit(screen, '8', 0, 0, (screen->w * 0.20), 0xFFFFFF);
-        draw_digit_clock(screen, (screen->w / 2), (screen->h / 2), rayonHorloge, rayonPoint, couleurDigits, NULL);
+        draw_digit_clock(screen, (screen->w / 2), (screen->h / 2), rayonHorloge, rayonPoint, couleurDigitsOff, NULL, 0);
+        draw_digit_clock(screen, (screen->w / 2), (screen->h / 2), rayonHorloge, rayonPoint, couleurDigits, temps, temps->tm_sec);
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage
