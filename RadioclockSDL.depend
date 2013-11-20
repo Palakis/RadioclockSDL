@@ -1,7 +1,20 @@
 # depslib dependency file v1.0
-1384943473 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.cpp
+1384948385 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.cpp
 	<stdlib.h>
 	<time.h>
+	<SDL/SDL.h>
+	"primitives.h"
+
+1384948824 /home/dali/Projets CodeBlocks/RadioclockSDL/primitives.h
 	<math.h>
 	<SDL/SDL.h>
+
+1384948551 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
+	"primitives.h"
+
+1384948385 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
+	<stdlib.h>
+	<time.h>
+	<SDL/SDL.h>
+	"primitives.h"
 
