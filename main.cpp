@@ -44,8 +44,8 @@ int main ( int argc, char** argv )
     SDL_Rect dstrect;
 
     // Couleurs des éléments visuels
-    Uint32 couleurRoue = SDL_MapRGB(screen->format, 0, 0, 255);
-    Uint32 couleurCadran = SDL_MapRGB(screen->format, 0, 0, 255);
+    Uint32 couleurRoue = SDL_MapRGB(screen->format, 255, 0, 0);
+    Uint32 couleurCadran = SDL_MapRGB(screen->format, 255, 0, 0);
     Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 32, 32, 32);
 
     // Rayons des éléments
@@ -55,6 +55,9 @@ int main ( int argc, char** argv )
     // Stockage du temps
     time_t tempsBrut;
     struct tm * temps;
+
+    const int framerate = 15;
+    int timeDelta = 1000/framerate;
 
     // Boucle principale
     bool done = false;
@@ -106,7 +109,7 @@ int main ( int argc, char** argv )
         // On récupère l'heure et la date
         time(&tempsBrut);
         temps = localtime(&tempsBrut);
-        printf("%d\n", temps->tm_sec);
+        //printf("%d\n", temps->tm_sec);
 
         // On affiche la roue en mode "off"
         draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
@@ -123,6 +126,10 @@ int main ( int argc, char** argv )
 
         // Mise à jour de l'affichage
         SDL_Flip(screen);
+
+        // Méthode dégueulasse pour restreindre le nombre de FPS
+        // Par extension, réduit la conso CPU
+        SDL_Delay(timeDelta);
     }
 
     // On décharge l'image du logo CodeBlocks
