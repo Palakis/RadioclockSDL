@@ -14,6 +14,7 @@ int main ( int argc, char** argv )
 
     // On s'assure que SDL est quitté correctement à l'arrêt du prog
     atexit(SDL_Quit);
+
     // Création d'une fenêtre
     Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE;
     int screenBPP = 32;
@@ -110,16 +111,16 @@ int main ( int argc, char** argv )
         //printf("%d\n", temps->tm_sec);
 
         // On affiche la roue en mode "off"
-        draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
+        //draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
         // Puis on affiche le cadran autour de la roue
-        draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + ecartCadran), (screen->h / 2) - (rayonHorloge + ecartCadran), (rayonHorloge + ecartCadran), rayonPoint, couleurCadran);
+        //draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + ecartCadran), (screen->h / 2) - (rayonHorloge + ecartCadran), (rayonHorloge + ecartCadran), rayonPoint, couleurCadran);
         // Et enfin on affiche la roue des secondes
-        draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
+        //draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
 
         //draw_circle(screen, rayonPoint+100, rayonPoint, rayonPoint, 0x00FF00);
         //draw_dots(screen, 60, 60, 100+rayonPoint, rayonPoint, rayonHorloge, rayonPoint, couleurRoueOff);
         //set_pixel(screen, 100, 50, 0xFFFFFF);
-
+        draw_digit(screen, '2', 0, 0, 50, 0xFFFFFF);
         // FIN DE L'AFFICHAGE
 
         // Mise à jour de l'affichage
