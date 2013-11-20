@@ -46,6 +46,7 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     const int cornerSeparation = 12;
     const int radius = dotRadius;
     const int segmentLength = 4;
+    const int slopeStepPx = 2;
 
     const int maxWidth = radius + (cornerSeparation*2) + (separation*(segmentLength-1)) + radius;
     const int maxHeight = (radius*2) + (cornerSeparation/2) + (separation*(segmentLength)) + (separation*(segmentLength)) + radius;
