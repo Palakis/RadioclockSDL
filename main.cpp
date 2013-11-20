@@ -51,6 +51,7 @@ int main ( int argc, char** argv )
     // Rayons des éléments
     int rayonPoint = 8;
     int rayonHorloge = 200;
+    int ecartCadran = 22;
 
     // Stockage du temps
     time_t tempsBrut;
@@ -100,11 +101,16 @@ int main ( int argc, char** argv )
         SDL_BlitSurface(bmp, 0, screen, &dstrect);
 
         // Calcul rayon horloge en fonction de la largeur de l'écran
-        rayonHorloge = (screen->w / 2) - rayonPoint - 22;
+        rayonHorloge = (screen->w / 2) - rayonPoint - ecartCadran;
+
         // Limitation rayon horloge en fonction de la hauteur de l'écran
-        if(rayonHorloge > (screen->h / 2) - rayonPoint - 22) {
-            rayonHorloge = (screen->h / 2) - rayonPoint - 22;
+        if(rayonHorloge > (screen->h / 2) - rayonPoint - ecartCadran) {
+            rayonHorloge = (screen->h / 2) - rayonPoint - ecartCadran;
         }
+
+        // Calcul rayon point et écart cadran
+        rayonPoint = (rayonHorloge) / 25;
+        ecartCadran = (rayonHorloge) / 9;
 
         // On récupère l'heure et la date
         time(&tempsBrut);
@@ -114,7 +120,7 @@ int main ( int argc, char** argv )
         // On affiche la roue en mode "off"
         draw_dots(screen, 60, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoueOff);
         // Puis on affiche le cadran autour de la roue
-        draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + 22), (screen->h / 2) - (rayonHorloge + 22), (rayonHorloge + 22), rayonPoint, couleurCadran);
+        draw_dots(screen, 12, 12, (screen->w / 2) - (rayonHorloge + ecartCadran), (screen->h / 2) - (rayonHorloge + ecartCadran), (rayonHorloge + ecartCadran), rayonPoint, couleurCadran);
         // Et enfin on affiche la roue des secondes
         draw_dots(screen, temps->tm_sec, 60, (screen->w / 2) - rayonHorloge, (screen->h / 2) - rayonHorloge, rayonHorloge, rayonPoint, couleurRoue);
 
