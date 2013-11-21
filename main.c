@@ -86,9 +86,9 @@ int main ( int argc, char** argv )
         }
 
         // Calcul rayon point
-        rayonPoint = rayonHorloge * 0.020;
+        rayonPoint = rayonHorloge * 0.023;
         // Calcul écart cadran
-        ecartCadran = rayonHorloge * 0.10;
+        ecartCadran = rayonPoint * 5;
 
         // On récupère l'heure et la date
         time(&tempsBrut);
