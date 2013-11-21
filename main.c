@@ -28,9 +28,9 @@ int main ( int argc, char** argv )
     // Couleurs des éléments visuels
     Uint32 couleurRoue = SDL_MapRGB(screen->format, 255, 0, 0);
     Uint32 couleurCadran = SDL_MapRGB(screen->format, 255, 0, 0);
-    Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 16, 16, 16);
+    Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 32, 32, 32);
     Uint32 couleurDigits = SDL_MapRGB(screen->format, 255, 0, 0);
-    Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 8, 8, 8);
+    Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 32, 32, 32);
     // Rayons des éléments
     int rayonPoint = 6;
     int rayonHorloge = 294;
@@ -78,7 +78,7 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         // Calcul rayon horloge en fonction de la largeur de l'écran (nb: 300)
-        rayonHorloge = 300 - rayonPoint;
+        rayonHorloge = (screen->h / 2) - rayonPoint;
 
         // Limitation rayon horloge en fonction de la hauteur de l'écran
         if(rayonHorloge > (screen->h / 2) - rayonPoint - ecartCadran) {
