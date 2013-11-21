@@ -56,68 +56,68 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
 
     switch(digit) {
         case '0':
-            digit = 0b0111111;
+            digit = 0x3F;
             break;
         case '1':
-            digit = 0b0000110;
+            digit = 0x06;
             break;
         case '2':
-            digit = 0b1011011;
+            digit = 0x5B;
             break;
         case '3':
-            digit = 0b1001111;
+            digit = 0x4F;
             break;
         case '4':
-            digit = 0b1100110;
+            digit = 0x66;
             break;
         case '5':
-            digit = 0b1101101;
+            digit = 0x6D;
             break;
         case '6':
-            digit = 0b1111101;
+            digit = 0x7D;
             break;
         case '7':
-            digit = 0b0000111;
+            digit = 0x07;
             break;
         case '8':
-            digit = 0b1111111;
+            digit = 0xFF;
             break;
         case '9':
-            digit = 0b1101111;
+            digit = 0x6F;
             break;
     }
 
-    if(digit & 0b0000001) {
+    if(digit & 1) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius + cornerSeparation + separation*(i), y + radius, radius, color);
             }
     }
-    if(digit & 0b0000010) {
+    if(digit & 2) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius + (cornerSeparation*2) + (separation*(segmentLength-1)), y + radius + cornerSeparation + separation*(i), radius, color);
             }
     }
-    if(digit & 0b0000100) {
+    if(digit & 4) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius + (cornerSeparation*2) + (separation*(segmentLength-1)), y + (radius/2) + (cornerSeparation*2) + (separation*segmentLength) + (separation*i), radius, color);
             }
     }
-    if(digit & 0b0001000) {
+    if(digit & 8) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius*2) + (cornerSeparation*2) + (separation*((segmentLength*2)-1)), radius, color);
             }
     }
-    if(digit & 0b0010000) {
+    if(digit & 16) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius, y + (radius/2) + (cornerSeparation*2) + (separation*segmentLength) + (separation*i), radius, color);
             }
     }
-    if(digit & 0b0100000) {
+    if(digit & 32) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius, y + radius + cornerSeparation + (separation*(i)), radius, color);
             }
     }
-    if(digit & 0b1000000) {
+    if(digit & 64) {
             for(int i = 0; i < segmentLength; i++) {
                 draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius/2) + cornerSeparation + (separation*(segmentLength)), radius, color);
             }
