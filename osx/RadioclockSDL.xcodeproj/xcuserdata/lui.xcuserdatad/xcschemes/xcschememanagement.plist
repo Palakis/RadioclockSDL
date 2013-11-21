@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>RadioclockSDL.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A912B3F31805BA1500BCB102</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A93AD4C71805C70A003E2D84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A93AD4E61805C70B003E2D84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A93AD5141805C9C9003E2D84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A980054D1805D493001572FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9800561183E96D4001572FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9F3CC221805CC6C00561750</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9F3CC411805CC6D00561750</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9F3CC631805CFB100561750</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

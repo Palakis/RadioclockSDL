@@ -1,9 +1,16 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
+
+#ifdef __APPLE__
+#include "SDL.h"
+#else
 #include <SDL/SDL.h>
+#endif
+
 #include "primitives.h"
 
-int main ( int argc, char** argv )
+int main(int argc, char **argv)
 {
     // On initialise la SDL
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -11,7 +18,7 @@ int main ( int argc, char** argv )
         printf( "Erreur init SDL: %s\n", SDL_GetError() );
         return 1;
     }
-
+    	
     // On s'assure que SDL est quitté correctement à l'arrêt du prog
     atexit(SDL_Quit);
 

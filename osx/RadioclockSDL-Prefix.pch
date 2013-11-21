@@ -1,0 +1,9 @@
+//
+//  RadioclockSDL-Prefix.pch
+//  RadioclockSDL
+//
+//  Created by Stéphane LEPIN on 21/11/13.
+//  Copyright (c) 2013 StephaneL. All rights reserved.
+//
+
+#include "SDL.h"
