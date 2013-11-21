@@ -1,3 +1,4 @@
+#include <time.h>
 #include "primitives.h"
 
 void set_pixel(SDL_Surface *surface, int x, int y, Uint32 color) {
@@ -123,22 +124,23 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     }
 }
 
-void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius, Uint32 color, struct tm *temps, int sec) {
-    char tempsStr[5];
+void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius, Uint32 color, time_t temps) {
     const int largeurDigit = w/4;
     const int blinkeurSpacing = w * 0.09;
+
+    struct tm *tempsLocal = localtime(&temps);
+    char tempsStr[5];
 
     if(temps == NULL) {
         strcpy(tempsStr, "8888");
     } else {
-        strftime(tempsStr, 5, "%H%M", temps);
+        strftime(tempsStr, 5, "%H%M", tempsLocal);
     }
-    //printf("%s\n",tempsStr);
 
     draw_digit(surface, tempsStr[0], cx - (largeurDigit/2)*2 - largeurDigit - (largeurDigit/2.5), cy, w/4, dotRadius, color);
     draw_digit(surface, tempsStr[1], cx - (largeurDigit/2)*2, cy, w/4, dotRadius, color);
 
-    if(temps == NULL || sec % 2) {
+    if(temps == NULL || tempsLocal->tm_sec % 2) {
         draw_circle(surface, cx, cy - blinkeurSpacing, dotRadius, color);
         draw_circle(surface, cx, cy + blinkeurSpacing, dotRadius, color);
     }
