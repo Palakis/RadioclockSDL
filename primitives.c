@@ -42,11 +42,10 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     //const int separation = 17;
     //const int cornerSeparation = 12;
     //const int radius = 8;
-    const int separation = 15;
-    const int cornerSeparation = 12;
-    const int radius = dotRadius;
     const int segmentLength = 4;
-    const int slopeStepPx = 2;
+    const int separation = w * 0.25;
+    const int cornerSeparation = w * 0.17;
+    const int radius = dotRadius;
 
     const int maxWidth = radius + (cornerSeparation*2) + (separation*(segmentLength-1)) + radius;
     const int maxHeight = (radius*2) + (cornerSeparation/2) + (separation*(segmentLength)) + (separation*(segmentLength)) + radius;
@@ -104,7 +103,7 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     }
     if(digit & 0b0001000) {
             for(int i = 0; i < segmentLength; i++) {
-                draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius*2) + (cornerSeparation) + (separation*(segmentLength)) + (separation*(segmentLength)), radius, color);
+                draw_circle(surface, x + radius + cornerSeparation + separation*i, y + (radius*2) + (cornerSeparation*2) + (separation*((segmentLength*2)-1)), radius, color);
             }
     }
     if(digit & 0b0010000) {

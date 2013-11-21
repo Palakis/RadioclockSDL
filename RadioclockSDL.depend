@@ -11,10 +11,10 @@
 	<time.h>
 	<SDL/SDL.h>
 
-1384988521 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
+1384993059 source:/home/dali/Projets CodeBlocks/RadioclockSDL/primitives.c
 	"primitives.h"
 
-1384988483 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
+1384993163 source:/home/dali/Projets CodeBlocks/RadioclockSDL/main.c
 	<stdlib.h>
 	<time.h>
 	<SDL/SDL.h>

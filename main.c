@@ -16,7 +16,7 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // Création d'une fenêtre
-    Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF;
+    Uint32 screenFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE;
     int screenBPP = 32;
     SDL_Surface* screen = SDL_SetVideoMode(800, 700, screenBPP, screenFlags);
     if ( !screen )
@@ -26,10 +26,10 @@ int main ( int argc, char** argv )
     }
 
     // Couleurs des éléments visuels
-    Uint32 couleurRoue = 0xFF0000;
-    Uint32 couleurCadran = 0xFF0000;
+    Uint32 couleurRoue = SDL_MapRGB(screen->format, 255, 0, 0);
+    Uint32 couleurCadran = SDL_MapRGB(screen->format, 255, 0, 0);
     Uint32 couleurRoueOff = SDL_MapRGB(screen->format, 16, 16, 16);
-    Uint32 couleurDigits = 0xFF0000;
+    Uint32 couleurDigits = SDL_MapRGB(screen->format, 255, 0, 0);
     Uint32 couleurDigitsOff = SDL_MapRGB(screen->format, 8, 8, 8);
     // Rayons des éléments
     int rayonPoint = 6;
@@ -77,17 +77,18 @@ int main ( int argc, char** argv )
         // Vidange de la surface d'affichage
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        // Calcul rayon horloge en fonction de la largeur de l'écran
+        // Calcul rayon horloge en fonction de la largeur de l'écran (nb: 300)
         rayonHorloge = 300 - rayonPoint;
-        //rayonPoint = rayonHorloge / 49;
 
         // Limitation rayon horloge en fonction de la hauteur de l'écran
         if(rayonHorloge > (screen->h / 2) - rayonPoint - ecartCadran) {
             rayonHorloge = (screen->h / 2) - rayonPoint - ecartCadran;
         }
 
-        // Calcul rayon point et écart cadran
-        //ecartCadran = rayonHorloge * 0.11;
+        // Calcul rayon point
+        rayonPoint = rayonHorloge * 0.027;
+        // Calcul écart cadran
+        ecartCadran = rayonHorloge * 0.10;
 
         // On récupère l'heure et la date
         time(&tempsBrut);
