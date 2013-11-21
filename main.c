@@ -86,7 +86,7 @@ int main ( int argc, char** argv )
         }
 
         // Calcul rayon point
-        rayonPoint = rayonHorloge * 0.027;
+        rayonPoint = rayonHorloge * 0.020;
         // Calcul écart cadran
         ecartCadran = rayonHorloge * 0.10;
 

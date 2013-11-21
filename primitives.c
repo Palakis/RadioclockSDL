@@ -43,8 +43,8 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
     //const int cornerSeparation = 12;
     //const int radius = 8;
     const int segmentLength = 4;
-    const int separation = w * 0.25;
-    const int cornerSeparation = w * 0.17;
+    const int separation = w * 0.20;
+    const int cornerSeparation = w * 0.15;
     const int radius = dotRadius;
 
     const int maxWidth = radius + (cornerSeparation*2) + (separation*(segmentLength-1)) + radius;
@@ -125,7 +125,8 @@ void draw_digit(SDL_Surface *surface, char digit, int x, int y, int w, int dotRa
 
 void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius, Uint32 color, struct tm *temps, int sec) {
     char tempsStr[5];
-    int largeurDigit = w/4;
+    const int largeurDigit = w/4;
+    const int blinkeurSpacing = w * 0.09;
 
     if(temps == NULL) {
         strcpy(tempsStr, "8888");
@@ -134,13 +135,13 @@ void draw_digit_clock(SDL_Surface *surface, int cx, int cy, int w, int dotRadius
     }
     //printf("%s\n",tempsStr);
 
-    draw_digit(surface, tempsStr[0], cx - (largeurDigit/2)*2 - largeurDigit - (largeurDigit/3), cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[0], cx - (largeurDigit/2)*2 - largeurDigit - (largeurDigit/2.5), cy, w/4, dotRadius, color);
     draw_digit(surface, tempsStr[1], cx - (largeurDigit/2)*2, cy, w/4, dotRadius, color);
 
     if(temps == NULL || sec % 2) {
-        draw_circle(surface, cx, cy - 30, dotRadius, color);
-        draw_circle(surface, cx, cy + 30, dotRadius, color);
+        draw_circle(surface, cx, cy - blinkeurSpacing, dotRadius, color);
+        draw_circle(surface, cx, cy + blinkeurSpacing, dotRadius, color);
     }
     draw_digit(surface, tempsStr[2], cx + (largeurDigit/2)*2, cy, w/4, dotRadius, color);
-    draw_digit(surface, tempsStr[3], cx + (largeurDigit/2)*2 + largeurDigit + (largeurDigit/3), cy, w/4, dotRadius, color);
+    draw_digit(surface, tempsStr[3], cx + (largeurDigit/2)*2 + largeurDigit + (largeurDigit/2.5), cy, w/4, dotRadius, color);
 }
