@@ -40,7 +40,7 @@ int main ( int argc, char** argv )
     time_t tempsBrut;
     struct tm *temps;
 
-    const int framerate = 15;
+    const int framerate = 5;
     int timeDelta = 1000/framerate;
 
     // Boucle principale
@@ -83,6 +83,9 @@ int main ( int argc, char** argv )
         // Limitation rayon horloge en fonction de la hauteur de l'écran
         if(rayonHorloge > (screen->h / 2) - rayonPoint - ecartCadran) {
             rayonHorloge = (screen->h / 2) - rayonPoint - ecartCadran;
+        }
+        if(rayonHorloge > (screen->w / 2) - rayonPoint - ecartCadran) {
+            rayonHorloge = (screen->w / 2) - rayonPoint - ecartCadran;
         }
 
         // Calcul rayon point
