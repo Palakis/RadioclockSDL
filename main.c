@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         printf( "Erreur init SDL: %s\n", SDL_GetError() );
         return 1;
     }
-    	
+
     // On s'assure que SDL est quitté correctement à l'arrêt du prog
     atexit(SDL_Quit);
 
